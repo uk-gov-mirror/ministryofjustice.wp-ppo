@@ -13,7 +13,7 @@
  */
 function roots_scripts() {
 	global $wp_styles;
-	
+
 	wp_enqueue_style( 'roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '6fdb1bb53650e8bc58715fec12c7e865' );
 //	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css', false);
 //	$wp_styles->add_data( 'font-awesome', 'conditional', 'gt ie8' );
@@ -29,7 +29,7 @@ function roots_scripts() {
 
 	wp_enqueue_style( 'ie7', get_template_directory_uri() . '/assets/css/ie7.css', array('roots_main' ) );
 	$wp_styles->add_data( 'ie7', 'conditional', 'lt IE 8' );
-	
+
 	wp_enqueue_style( 'ie7and8', get_template_directory_uri() . '/assets/css/ie7and8.css', array('roots_main'), '6fdb1bb53650e8bc58715fec12c7e865' );
 	$wp_styles->add_data( 'ie7and8', 'conditional', 'lt IE 9' );
 
@@ -79,29 +79,3 @@ function roots_jquery_local_fallback( $src, $handle = null ) {
 }
 
 add_action( 'wp_head', 'roots_jquery_local_fallback' );
-
-function roots_google_analytics() {
-	?>
-	<script>
-		(function(b, o, i, l, e, r) {
-			b.GoogleAnalyticsObject = l;
-			b[l] || (b[l] =
-					function() {
-						(b[l].q = b[l].q || []).push(arguments)
-					});
-			b[l].l = +new Date;
-			e = o.createElement(i);
-			r = o.getElementsByTagName(i)[0];
-			e.src = '//www.google-analytics.com/analytics.js';
-			r.parentNode.insertBefore(e, r)
-		}(window, document, 'script', 'ga'));
-		ga('create', '<?php echo GOOGLE_ANALYTICS_ID; ?>');
-		ga('send', 'pageview');
-	</script>
-
-	<?php
-}
-
-if ( GOOGLE_ANALYTICS_ID && !current_user_can( 'manage_options' ) ) {
-	add_action( 'wp_footer', 'roots_google_analytics', 20 );
-}
